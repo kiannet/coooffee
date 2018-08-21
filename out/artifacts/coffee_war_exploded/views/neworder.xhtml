@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+<f:view locale="#{language.currentLocale}">
+<h:head>
+    <title>#{msg['welcome.neworder']}</title>
+</h:head>
+<h:body>
+    <h:form locale="#{language.currentLocale}">
+
+        <p:outputLabel>#{msg['welcome.neworder']}</p:outputLabel>
+
+        <table>
+            <tr>
+                <td>
+                    <p:outputLabel value="#{msg['welcome.coffeesort']}"></p:outputLabel>
+                </td>
+
+                <td>
+                    <p:selectOneMenu label="Coffee sort"
+                                     value="#{orderBean.sortName}" required="true">
+                        <f:selectItem itemValue=""></f:selectItem>
+                        <f:selectItems value="#{commonBean.sortNames}" id="sort" var="sortName" itemValue="#{sortName}"
+                                       itemLabel="#{sortName}"/>
+                        <f:ajax event="change" execute="sort" listener="#{orderBean.recountPrice}" render="price"/>
+                    </p:selectOneMenu>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p:outputLabel value="#{msg['welcome.delivery']}"></p:outputLabel>
+                </td>
+
+                <td>
+                    <p:selectOneRadio label="Delivery"
+                                      id="delivery" value="#{orderBean.delivery}" required="true">
+                        <f:selectItem itemLabel="#{msg['welcome.pickup']}" itemValue="pickup"/>
+                        <f:selectItem itemLabel="#{msg['welcome.bycouirier']}" itemValue="bycourier" />
+                        <f:ajax event="change" execute="delivery" listener="#{orderBean.changePrice}" render="price"/>
+                    </p:selectOneRadio>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p:outputLabel value="#{msg['welcome.quantity']}"></p:outputLabel>
+                </td>
+
+                <td>
+                    <p:inputText label="Quantity"
+                                 id="quantity" value="#{orderBean.quantity}" required="true">
+                        <f:validateDoubleRange minimum="100.0" maximum="100000.0" />
+                        <f:ajax event="valueChange" execute="quantity" listener="#{orderBean.recountPrice}" render="price"/>
+                    </p:inputText>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p:outputLabel value="#{msg['welcome.deliverytime']}"></p:outputLabel>
+                </td>
+
+                <td>
+                    <p:inputText value="#{orderBean.fromDate}" required="true">
+                        <f:convertDateTime dateStyle="full" pattern="yyyy.MM.dd 'at' HH:mm:ss z"/>
+                    </p:inputText>
+                    <p:outputLabel value=" - "></p:outputLabel>
+                    <p:inputText value="#{orderBean.toDate}" required="true">
+                        <f:convertDateTime dateStyle="full" pattern="yyyy.MM.dd 'at' HH:mm:ss z"/>
+                    </p:inputText>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p:outputLabel value="#{msg['welcome.price']}"></p:outputLabel>
+                </td>
+
+                <td>
+                    <p:outputLabel id="price" value="$#{orderBean.price}"></p:outputLabel>
+                </td>
+            </tr>
+
+        </table>
+        <p:messages></p:messages>
+        <p:commandButton value="#{msg['welcome.makeorder']}" actionListener="#{orderBean.addOrder}" action="/views/main.xhtml" ajax="false"></p:commandButton>
+        <br/>
+    </h:form>
+
+    <h:form>
+        <p:commandButton value="#{msg['welcome.tomain']}" action="/views/main.xhtml" ajax="false"></p:commandButton>
+    </h:form>
+</h:body>
+</f:view>
+</html>

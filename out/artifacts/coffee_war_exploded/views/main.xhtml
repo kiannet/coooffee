@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" >
+
+<f:view locale="#{language.currentLocale}">
+    <h:head>
+        <title>Coffee shop</title>
+    </h:head>
+
+    <h:body>
+        <p:messages></p:messages>
+        <h:form>
+            <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
+
+                <p:outputLabel id="language" value="#{msg['welcome.language']}"/>
+                <p:selectOneMenu value="#{language.localeCode}" onchange="submit()"
+                                 valueChangeListener="#{language.countryLocaleCodeChanged}">
+                    <f:selectItems value="#{language.countriesInMap}" />
+                </p:selectOneMenu>
+
+                <p:commandButton id="but" value="Click me!" >
+                    <f:ajax event="click" execute="#{commonBean.findAllOrders()}" transient="true" render="count" />
+                </p:commandButton>
+                <p:outputLabel id="count" value="#{commonBean.count} #{msg['welcome.orders']}"/>
+                <p:commandLink value="#{msg['welcome.tomakeorder']}" actionListener="#{commonBean.toMakeOrder}" action="/views/neworder.xhtml"></p:commandLink>
+                <p:commandLink value="#{msg['welcome.toorders']} (#{commonBean.count} #{msg['welcome.orders']})" actionListener="#{commonBean.showAllOrders}" action="/views/orders.xhtml"></p:commandLink>
+
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

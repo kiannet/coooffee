@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>newOrder</from-outcome>
+            <to-view-id>/views/neworder.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>seeOrders</from-outcome>
+            <to-view-id>/views/orders.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/views/neworder.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>ordered</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>ordererror</from-outcome>
+            <to-view-id>/views/neworder.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+
+        <navigation-case>
+            <from-outcome>main</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/views/orders.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-outcome>change</from-outcome>
+            <to-view-id>/views/changeorder.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>todelete</from-outcome>
+            <to-view-id>/views/deleteorder.xhtml</to-view-id>
+        </navigation-case>
+
+
+    </navigation-rule>
+
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>com.coffee.welcome</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+
+</faces-config>
