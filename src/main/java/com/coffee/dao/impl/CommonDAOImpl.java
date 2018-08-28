@@ -16,7 +16,7 @@ public class CommonDAOImpl implements CommonDAO {
 
         Session session = null;
         session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        price = (Double) session.createNativeQuery("SELECT price FROM sort WHERE name='" + sortName + "'").list().get(0);
+        price = (Double) session.createNativeQuery(SELECT_PRICE_BY_SORT_NAME + sortName + QUOTE).list().get(0);
 
 
         return price;
@@ -27,7 +27,7 @@ public class CommonDAOImpl implements CommonDAO {
 
         Session session = null;
         session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        sortNames = session.createNativeQuery("SELECT name FROM sort").list();
+        sortNames = session.createNativeQuery(SELECT_SORT_NAMES).list();
 
         return sortNames;
     }

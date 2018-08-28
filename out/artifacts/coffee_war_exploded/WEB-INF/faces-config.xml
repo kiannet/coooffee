@@ -4,7 +4,6 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
 
@@ -52,12 +51,6 @@
             <from-outcome>change</from-outcome>
             <to-view-id>/views/changeorder.xhtml</to-view-id>
         </navigation-case>
-
-        <navigation-case>
-            <from-outcome>todelete</from-outcome>
-            <to-view-id>/views/deleteorder.xhtml</to-view-id>
-        </navigation-case>
-
 
     </navigation-rule>
 

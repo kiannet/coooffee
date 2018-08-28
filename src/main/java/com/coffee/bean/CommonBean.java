@@ -1,5 +1,6 @@
 package com.coffee.bean;
 
+import com.coffee.constant.Message;
 import com.coffee.service.CommonService;
 import com.coffee.service.OrderService;
 
@@ -54,19 +55,15 @@ public class CommonBean {
         return orders;
     }
 
-    public String showAllOrders() {
+    public void showAllOrders() {
 
-        String outcome;
         orders = orderService.findAllOrders();
 
         if(orders.size() == 0){
-            FacesMessage noOrdersMessage = new FacesMessage("There're no orders yet.");
+            FacesMessage noOrdersMessage = new FacesMessage(Message.NO_ORDERS);
             FacesContext.getCurrentInstance().addMessage(null, noOrdersMessage);
         }
 
-        outcome = "seeOrders";
-
-        return outcome;
     }
 
     public void findAllOrders(){
@@ -75,68 +72,43 @@ public class CommonBean {
     }
 
 
-    public String changeOrder(OrderBean order) {
-        String outcome;
-
+    public void changeOrder(OrderBean order) {
         currentOrder = order;
         findAllSortNames();
-        outcome = "change";
 
-        return outcome;
     }
 
     public void findAllSortNames(){
         sortNames = commonService.findAllSortNames();
     }
 
-    public String toMakeOrder(){
-        findAllSortNames();
-        return "newOrder";
-    }
+    public void updateOrder(OrderBean order) {
+        FacesMessage doneMessage;
 
-
-    public String updateOrder(OrderBean order) {
-        String outcome;
-
-        if(validateDate()) {
-            FacesMessage doneMessage = new FacesMessage("Order №" + order.getId() + " has been successfully updated.");
+        if(this.currentOrder.getToDate().after(this.currentOrder.getFromDate())) {
+            doneMessage = new FacesMessage(Message.ORDER_NUMBER + order.getId() + Message.UPDATED);
             orderService.updateOrder(order);
-
-            outcome = "main";
 
             FacesContext.getCurrentInstance().addMessage(null, doneMessage);
         }
         else {
-            outcome = "";
-            FacesMessage doneMessage = new FacesMessage("Incorrect date value. Try again." );
+            doneMessage = new FacesMessage(Message.INCORRECT_DATE_INPUT);
             FacesContext.getCurrentInstance().addMessage(null, doneMessage);
-
         }
 
-        return outcome;
     }
 
-    public boolean validateDate(){
-        return this.currentOrder.getToDate().after(this.currentOrder.getFromDate());
-    }
-
-    public String deleteOrder(OrderBean order) {
-        String outcome;
-        FacesMessage doneMessage = new FacesMessage("Order №" + order.getId() + " has been successfully deleted.");
+    public void deleteOrder(OrderBean order) {
+        FacesMessage doneMessage = new FacesMessage(Message.ORDER_NUMBER + order.getId() + Message.DELETED);
 
         orderService.deleteOrder(order);
-        outcome = "main";
 
         FacesContext.getCurrentInstance().addMessage(null, doneMessage);
 
-        return outcome;
     }
 
-    public String toDeleteOrder(OrderBean orderBean){
-        String outcome;
+    public void toDeleteOrder(OrderBean orderBean){
         currentOrder = orderBean;
-        outcome = "todelete";
-        return outcome;
 
     }
 }

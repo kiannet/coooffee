@@ -1,5 +1,7 @@
 package com.coffee.bean;
 
+import com.coffee.constant.Constant;
+import com.coffee.constant.Message;
 import com.coffee.service.CommonService;
 import com.coffee.service.OrderService;
 
@@ -90,22 +92,18 @@ public class OrderBean {
 
 
 
-    public String addOrder() {
+    public void addOrder() {
         OrderService orderService = new OrderService();
-        FacesMessage doneMessage;
-        String outcome;
+        FacesMessage message;
 
-        if (validateDate()) {
+        if (this.toDate.after(this.fromDate)) {
             orderService.saveOrder(this);
-            doneMessage = new FacesMessage("Successfully added new order!");
-            outcome = "ordered";
+            message = new FacesMessage(Message.ADDED);
         } else {
-            doneMessage = new FacesMessage("Incorrect date value. Try again.");
-            outcome = "ordererror";
+            message = new FacesMessage(Message.INCORRECT_DATE_INPUT);
         }
 
-        FacesContext.getCurrentInstance().addMessage(null, doneMessage);
-        return outcome;
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 
@@ -113,25 +111,21 @@ public class OrderBean {
         CommonService commonService = new CommonService();
         double priceForKg = commonService.findPriceBySortName(this.sortName);
 
-        this.price = this.quantity*priceForKg/100;
+        this.price = this.quantity*priceForKg/1000;
 
-        if (this.delivery.equals("bycourier")){
+        if (this.delivery.equals(Constant.BY_COURIER)){
             this.price = this.price + 1;
         }
     }
 
     public void changePrice(){
-        if ((this.price > 0) && this.delivery.equals("pickup")){
+        if ((this.price > 0) && this.delivery.equals(Constant.PICK_UP)){
             this.price = this.price - 1;
         }
 
-        if (this.delivery.equals("bycourier")){
+        if (this.delivery.equals(Constant.BY_COURIER)){
             this.price = this.price + 1;
         }
-    }
-
-    public boolean validateDate(){
-        return this.toDate.after(this.fromDate);
     }
 
 

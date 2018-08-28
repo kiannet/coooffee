@@ -25,7 +25,9 @@
                 <p:commandButton value="#{msg['welcome.delete']}" actionListener="#{commonBean.toDeleteOrder(order)}" action="/views/deleteorder.xhtml"></p:commandButton>
             </h:column>
         </h:dataTable>
+    </h:form>
 
+    <h:form>
         <p:commandButton value="#{msg['welcome.tomain']}" action="/views/main.xhtml" ajax="false"></p:commandButton>
     </h:form>
 </h:body>

@@ -1,9 +1,6 @@
 package com.coffee.constant;
 
 public class Constant {
-    public static final String s = "";
-    public static final String s1 = "";
-    public static final String s2 = "";
-    public static final String s3 = "";
-    public static final String s4 = "";
+    public static final String PICK_UP = "pickup";
+    public static final String BY_COURIER = "bycourier";
 }
