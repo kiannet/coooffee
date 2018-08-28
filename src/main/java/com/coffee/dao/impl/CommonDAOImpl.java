@@ -1,35 +1,27 @@
 package com.coffee.dao.impl;
 
 import com.coffee.dao.CommonDAO;
+import com.coffee.entity.Sort;
 import com.coffee.util.HibernateSessionFactoryUtil;
-import org.hibernate.Session;
 
 import java.util.List;
 
 public class CommonDAOImpl implements CommonDAO {
-    private static final String SELECT_PRICE_BY_SORT_NAME = "SELECT price FROM sort WHERE name='";
-    private static final String SELECT_SORT_NAMES = "SELECT name FROM sort";
-    private static final String QUOTE = "'";
 
     public double findPriceBySortName(String sortName) {
+
         double price;
-
-        Session session = null;
-        session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        price = (Double) session.createNativeQuery(SELECT_PRICE_BY_SORT_NAME + sortName + QUOTE).list().get(0);
-
-
+        price = (Double)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("Select S.price from Sort S where S.name='" + sortName + "'").list().get(0);
         return price;
+
+
     }
 
-    public List<String> findAllSortNames() {
-        List<String> sortNames;
+    public List<Sort> findAllSortNames() {
 
-        Session session = null;
-        session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        sortNames = session.createNativeQuery(SELECT_SORT_NAMES).list();
+        List<Sort> sorts = (List<Sort>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Sort").list();
+        return sorts;
 
-        return sortNames;
     }
 
 }

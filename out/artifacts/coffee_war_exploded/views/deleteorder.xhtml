@@ -16,58 +16,29 @@
 
         <p:outputLabel>#{msg['welcome.deleteorder']}</p:outputLabel>
 
-        <table>
-            <tr>
-                <td>
-                    <p:outputLabel value="#{msg['welcome.coffeesort']}"></p:outputLabel>
-                </td>
+        <p:dataTable var="order" value="#{commonBean.currentOrder}">
 
-                <td>
-                    <p:outputLabel value="#{commonBean.currentOrder.sortName}"></p:outputLabel>
-                </td>
-            </tr>
+            <p:column headerText="#{msg['welcome.coffeesort']}">
+                <p:outputLabel value="#{commonBean.currentOrder.sortName}"></p:outputLabel>
+            </p:column>
 
-            <tr>
-                <td>
-                    <p:outputLabel value="#{msg['welcome.delivery']}"></p:outputLabel>
-                </td>
-
-                <td>
+            <p:column headerText="#{msg['welcome.delivery']}">
                     <p:outputLabel value="#{commonBean.currentOrder.delivery}"></p:outputLabel>
-                </td>
-            </tr>
+            </p:column>
 
-            <tr>
-                <td>
-                    <p:outputLabel value="#{msg['welcome.quantity']}"></p:outputLabel>
-                </td>
-
-                <td>
+            <p:column headerText="#{msg['welcome.quantity']}">
                     <p:outputLabel value="#{commonBean.currentOrder.quantity}"></p:outputLabel>
-                </td>
-            </tr>
+            </p:column>
 
-            <tr>
-                <td>
-                    <p:outputLabel value="#{msg['welcome.deliverytime']}"></p:outputLabel>
-                </td>
-
-                <td>
+            <p:column headerText="#{msg['welcome.deliverytime']}">
                     <p:outputLabel value="from #{commonBean.currentOrder.fromDate} to #{commonBean.currentOrder.toDate}"></p:outputLabel>
-                </td>
-            </tr>
+            </p:column>
 
-            <tr>
-                <td>
-                    <p:outputLabel value="#{msg['welcome.price']}"></p:outputLabel>
-                </td>
+            <p:column headerText="#{msg['welcome.price']}">
+                    <p:outputLabel value="#{commonBean.currentOrder.price}"></p:outputLabel>
+            </p:column>
 
-                <td>
-                    <p:outputLabel value="$#{commonBean.currentOrder.price}"></p:outputLabel>
-                </td>
-            </tr>
-
-        </table>
+        </p:dataTable>
 
         <p:commandButton value="#{msg['welcome.delete']}" actionListener="#{commonBean.deleteOrder(commonBean.currentOrder)}" action="/views/main.xhtml"></p:commandButton>
         <br/>

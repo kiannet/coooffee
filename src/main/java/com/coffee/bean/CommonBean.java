@@ -1,6 +1,7 @@
 package com.coffee.bean;
 
 import com.coffee.constant.Message;
+import com.coffee.entity.Sort;
 import com.coffee.service.CommonService;
 import com.coffee.service.OrderService;
 
@@ -8,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +19,17 @@ public class CommonBean {
     private int count;
     private OrderBean currentOrder;
 
-    private List<String> sortNames;
+    private List<Sort> sortNames;
     private List<OrderBean> orders = new ArrayList<OrderBean>();
 
     private OrderService orderService = new OrderService();
     private CommonService commonService = new CommonService();
 
-    public List<String> getSortNames() {
+    public List<Sort> getSortNames() {
         return sortNames;
     }
 
-    public void setSortNames(List<String> sortNames) {
+    public void setSortNames(List<Sort> sortNames) {
         this.sortNames = sortNames;
     }
 

@@ -25,8 +25,8 @@
                     <p:selectOneMenu label="Coffee sort"
                                      value="#{orderBean.sortName}" required="true">
                         <f:selectItem itemValue=""></f:selectItem>
-                        <f:selectItems value="#{commonBean.sortNames}" id="sort" var="sortName" itemValue="#{sortName}"
-                                       itemLabel="#{sortName}"/>
+                        <f:selectItems value="#{commonBean.sortNames}" id="sort" var="sortName" itemValue="#{sortName.name}"
+                                       itemLabel="#{sortName.name}"/>
                         <f:ajax event="change" execute="sort" listener="#{orderBean.recountPrice}" render="price"/>
                     </p:selectOneMenu>
                 </td>

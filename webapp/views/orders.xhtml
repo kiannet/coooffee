@@ -14,17 +14,32 @@
     <h:form locale="#{language.currentLocale}">
         <p:outputLabel value="#{msg['welcome.orders']}" />
         <p:messages></p:messages>
-        <h:dataTable value="#{commonBean.orders}" var="order">
-            <h:column>
-                <p:outputLabel value="#{order}" />
-            </h:column>
-            <h:column>
+        <p:dataTable value="#{commonBean.orders}" var="order">
+            <p:column headerText="№">
+                <p:outputLabel value="#{order.id}" />
+            </p:column>
+            <p:column headerText="#{msg['welcome.coffeesort']}">
+                <p:outputLabel value="#{order.sortName}" />
+            </p:column>
+            <p:column headerText="#{msg['welcome.quantity']}">
+                <p:outputLabel value="#{order.quantity}" />
+            </p:column>
+            <p:column headerText="#{msg['welcome.delivery']}">
+                <p:outputLabel value="#{order.delivery}" />
+            </p:column>
+            <p:column headerText="#{msg['welcome.deliverytime']}">
+                <p:outputLabel value="from #{order.fromDate} to #{order.toDate}" />
+            </p:column>
+            <p:column headerText="#{msg['welcome.price']}">
+                <p:outputLabel value="#{order.price}" />
+            </p:column>
+            <p:column>
                 <p:commandButton value="#{msg['welcome.change']}" actionListener="#{commonBean.changeOrder(order)}" action="/views/changeorder.xhtml"></p:commandButton>
-            </h:column>
-            <h:column>
+            </p:column>
+            <p:column>
                 <p:commandButton value="#{msg['welcome.delete']}" actionListener="#{commonBean.toDeleteOrder(order)}" action="/views/deleteorder.xhtml"></p:commandButton>
-            </h:column>
-        </h:dataTable>
+            </p:column>
+        </p:dataTable>
     </h:form>
 
     <h:form>

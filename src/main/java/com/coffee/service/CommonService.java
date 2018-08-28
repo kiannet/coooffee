@@ -2,6 +2,7 @@ package com.coffee.service;
 
 import com.coffee.dao.CommonDAO;
 import com.coffee.dao.impl.CommonDAOImpl;
+import com.coffee.entity.Sort;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CommonService {
         return commonDAO.findPriceBySortName(sortName);
     }
 
-    public List<String> findAllSortNames(){
+    public List<Sort> findAllSortNames(){
         return commonDAO.findAllSortNames();
     }
 }
